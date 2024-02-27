@@ -16,8 +16,6 @@ class BaseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    print(backgroundColor);
-
     return Column(
       children: [
         if (title != null) ...[

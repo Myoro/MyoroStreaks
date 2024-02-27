@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myoro_streaks/widgets/inputs/base_text_field_form.dart';
 import 'package:myoro_streaks/widgets/modals/base_modal.dart';
 
 class StreakFormModal extends StatefulWidget {
@@ -15,10 +16,27 @@ class StreakFormModal extends StatefulWidget {
 }
 
 class _StreakFormModalState extends State<StreakFormModal> {
+  final TextEditingController _nameController = TextEditingController();
+
   @override
-  Widget build(BuildContext context) => const BaseModal(
-        size: Size(300, 300),
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => BaseModal(
+        size: const Size(300, 300),
         showFooterButtons: true,
-        content: Text('Start'),
+        content: Column(
+          children: [
+            BaseTextFieldForm(
+              title: 'Name of Streak',
+              textFieldWidth: 200,
+              obligatory: true,
+              controller: _nameController,
+            ),
+          ],
+        ),
       );
 }

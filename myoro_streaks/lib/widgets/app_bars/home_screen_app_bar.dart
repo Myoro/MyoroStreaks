@@ -24,12 +24,10 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
           const Spacer(),
           IconButtonWithoutFeedback(
             icon: Icons.add,
-            size: 40,
             onTap: () => StreakFormModal.show(context),
           ),
           IconButtonWithoutFeedback(
             icon: Icons.sunny,
-            size: 40,
             onTap: () => BlocProvider.of<DarkModeCubit>(context).toggle(),
           ),
         ],
