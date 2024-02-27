@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:myoro_streaks/models/observation.dart';
 
 class Streak {
-  final int id;
+  final int? id;
   final String name;
   final DateTime startDate;
 
@@ -15,7 +15,7 @@ class Streak {
   final List<Observation> observations;
 
   const Streak({
-    required this.id,
+    this.id,
     required this.name,
     required this.startDate,
     required this.timesResetted,

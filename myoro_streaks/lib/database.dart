@@ -42,6 +42,34 @@ class Database {
     if ((await get('dark_mode')).isEmpty) {
       _database.insert('dark_mode', {'enabled': 1});
     }
+
+    // Streaks table
+    await _database.execute('''
+      CREATE TABLE IF NOT EXISTS streaks(
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        start_date  TEXT,
+        FOREIGN KEY (times_resetted_id) REFERENCES times_resetted(id),
+        FOREIGN KEY (observations_id) REFERENCES observations(id)
+      );
+    ''');
+
+    // Times resetted table
+    await _database.execute('''
+      CREATE TABLE IF NOT EXISTS times_resetted(
+        streak_id      INTEGER PRIMARY KEY,
+        times_resetted INTEGER,
+        FOREIGN KEY    (streak_id) REFERENCES streak(id),
+      );
+    ''');
+
+    // Observations table
+    await _database.execute('''
+      CREATE TABLE IF NOT EXISTS observations(
+        streak_id   INTEGER PRIMARY KEY,
+        observation TEXT,
+        FOREIGN KEY (streak_id) REFERENCES streak(id)
+      );
+    ''');
   }
 
   static Future<List<Map<String, Object?>>> select(String table,
@@ -72,4 +100,8 @@ class Database {
       whereArgs: conditions?['whereArgs'],
     );
   }
+
+  static Future<void> insert(
+          String table, Map<String, dynamic> information) async =>
+      await _database.insert(table, information);
 }

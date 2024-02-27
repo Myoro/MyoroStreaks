@@ -37,7 +37,7 @@ class BaseTextFieldForm extends StatelessWidget {
     return Row(
       children: [
         Text('${obligatory ? '* ' : ''}$title:', style: titleTextStyle),
-        const SizedBox(width: 5),
+        const SizedBox(width: 10),
         BaseTextField(
           sizeEnum: sizeEnum,
           width: textFieldWidth,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myoro_streaks/blocs/streaks_cubit.dart';
+import 'package:myoro_streaks/models/streak.dart';
 import 'package:myoro_streaks/widgets/inputs/base_text_field_form.dart';
 import 'package:myoro_streaks/widgets/modals/base_modal.dart';
 
@@ -18,6 +21,19 @@ class StreakFormModal extends StatefulWidget {
 class _StreakFormModalState extends State<StreakFormModal> {
   final TextEditingController _nameController = TextEditingController();
 
+  void _createStreak() {
+    BlocProvider.of<StreaksCubit>(context).add(
+      Streak(
+        name: _nameController.text,
+        startDate: DateTime.now(),
+        timesResetted: [],
+        observations: [],
+      ),
+    );
+
+    Navigator.pop(context);
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -26,13 +42,15 @@ class _StreakFormModalState extends State<StreakFormModal> {
 
   @override
   Widget build(BuildContext context) => BaseModal(
-        size: const Size(300, 300),
+        size: const Size(330, 140),
+        title: 'Create a new streak',
         showFooterButtons: true,
+        yesOnTap: () => _createStreak(),
         content: Column(
           children: [
             BaseTextFieldForm(
               title: 'Name of Streak',
-              textFieldWidth: 200,
+              textFieldWidth: 135,
               obligatory: true,
               controller: _nameController,
             ),

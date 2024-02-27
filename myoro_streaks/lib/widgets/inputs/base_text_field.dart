@@ -25,16 +25,20 @@ class BaseTextField extends StatelessWidget {
 
     // Height needs to be decided here for the text to not looking offsetted
     late final double height;
+    late final TextStyle textStyle;
 
     switch (sizeEnum) {
       case SizeEnum.small:
         height = 40;
+        textStyle = theme.textTheme.bodySmall!;
         break;
       case SizeEnum.medium:
         height = 50;
+        textStyle = theme.textTheme.bodyMedium!;
         break;
       case SizeEnum.large:
         height = 60;
+        textStyle = theme.textTheme.bodyLarge!;
         break;
     }
 
@@ -43,6 +47,8 @@ class BaseTextField extends StatelessWidget {
       height: height,
       child: TextField(
         controller: controller,
+        style: textStyle,
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.zero,
           focusedBorder: border,

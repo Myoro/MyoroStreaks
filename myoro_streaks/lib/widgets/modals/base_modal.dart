@@ -10,15 +10,19 @@ class BaseModal extends StatelessWidget {
   final Size size;
   final String? title;
   final bool showFooterButtons;
+  final Function? yesOnTap;
   final Widget content;
 
-  const BaseModal({
+  BaseModal({
     super.key,
     required this.size,
     this.title,
     this.showFooterButtons = false,
+    this.yesOnTap,
     required this.content,
-  });
+  }) {
+    assert(showFooterButtons && yesOnTap != null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,8 @@ class BaseModal extends StatelessWidget {
                   ],
                 ),
                 content,
-                if (showFooterButtons)
+                const SizedBox(height: 10),
+                if (showFooterButtons) ...[
                   Row(
                     children: [
                       Expanded(
@@ -78,6 +83,8 @@ class BaseModal extends StatelessWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 3),
+                ],
               ],
             ),
           ),
