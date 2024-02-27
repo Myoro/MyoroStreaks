@@ -10,13 +10,14 @@ import 'package:myoro_streaks/widgets/screens/home_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if(PlatformHelper.isDesktop) {
+  if (PlatformHelper.isDesktop) {
     windowManager.ensureInitialized();
     windowManager.setMinimumSize(const Size(300, 300));
   }
 
   await Database.init();
-  final bool isDarkMode = (await Database.get('dark_mode'))['enabled'] == 1 ? true : false;
+  final bool isDarkMode =
+      (await Database.get('dark_mode'))['enabled'] == 1 ? true : false;
 
   runApp(
     BlocProvider(
@@ -27,14 +28,14 @@ void main() async {
 }
 
 class App extends StatelessWidget {
-  const App({ super.key });
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) => BlocBuilder<DarkModeCubit, bool>(
-    builder: (context, isDarkMode) => MaterialApp(
-      title: 'Myoro Streaks',
-      theme: createTheme(isDarkMode),
-      home: const HomeScreen(),
-    ),
-  );
+        builder: (context, isDarkMode) => MaterialApp(
+          title: 'Myoro Streaks',
+          theme: createTheme(isDarkMode),
+          home: const HomeScreen(),
+        ),
+      );
 }

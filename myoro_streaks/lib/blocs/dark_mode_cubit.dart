@@ -5,7 +5,7 @@ class DarkModeCubit extends Cubit<bool> {
   DarkModeCubit(super.isDarkMode);
 
   void toggle() async {
-    await Database.update('dark_mode', { 'enabled': state ? 0 : 1 });
+    await Database.update('dark_mode', {'enabled': state ? 0 : 1});
     emit(!state);
   }
 }

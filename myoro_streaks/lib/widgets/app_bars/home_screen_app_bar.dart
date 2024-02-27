@@ -4,7 +4,7 @@ import 'package:myoro_streaks/blocs/dark_mode_cubit.dart';
 import 'package:myoro_streaks/widgets/buttons/icon_button_without_feedback.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeScreenAppBar({ super.key });
+  const HomeScreenAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

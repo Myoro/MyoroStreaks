@@ -14,14 +14,14 @@ class IconButtonWithoutFeedback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => InkWell(
-    hoverColor: Colors.transparent,
-    splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-    onTap: () => onTap(),
-    child: Icon(
-      icon,
-      size: size,
-      color: Theme.of(context).colorScheme.onPrimary,
-    ),
-  );
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () => onTap(),
+        child: Icon(
+          icon,
+          size: size,
+          color: Theme.of(context).colorScheme.onPrimary,
+        ),
+      );
 }

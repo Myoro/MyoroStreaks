@@ -16,7 +16,7 @@ class BaseCard extends StatelessWidget {
 
     return Column(
       children: [
-        if(title != null)...[
+        if (title != null) ...[
           Text(
             title!,
             style: theme.textTheme.titleMedium,
