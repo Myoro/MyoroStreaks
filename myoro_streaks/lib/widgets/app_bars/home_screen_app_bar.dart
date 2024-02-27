@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:myoro_streaks/blocs/dark_mode_cubit.dart';
+import 'package:myoro_streaks/widgets/buttons/icon_button_without_feedback.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({ super.key });
@@ -18,6 +21,11 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: theme.textTheme.titleMedium,
           ),
           const Spacer(),
+          IconButtonWithoutFeedback(
+            icon: Icons.sunny,
+            size: 40,
+            onTap: () => BlocProvider.of<DarkModeCubit>(context).toggle(),
+          ),
         ],
       ),
     );
