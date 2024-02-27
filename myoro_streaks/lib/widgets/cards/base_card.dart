@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 
 class BaseCard extends StatelessWidget {
   final String? title;
+  final Color? backgroundColor;
   final Widget child;
 
   const BaseCard({
     super.key,
     this.title,
     required this.child,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+
+    print(backgroundColor);
 
     return Column(
       children: [
@@ -25,7 +29,8 @@ class BaseCard extends StatelessWidget {
         ],
         Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
+            color: backgroundColor ??
+                Theme.of(context).colorScheme.onPrimary.withOpacity(0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Padding(

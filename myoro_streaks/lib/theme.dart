@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+const Color _darkColor = Color(0xFF181818);
+const Color _lightColor = Color(0xFFEDE6D6);
+
 TextStyle _textStyle(
   bool isDarkMode, {
   required double fontSize,
@@ -10,30 +13,24 @@ TextStyle _textStyle(
       fontSize: fontSize,
       fontWeight: fontWeight,
       fontStyle: fontStyle,
-      color: isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
+      color: isDarkMode ? _lightColor : _darkColor,
     );
 
 ThemeData createTheme(bool isDarkMode) => ThemeData(
       colorScheme: ColorScheme(
         brightness: isDarkMode ? Brightness.dark : Brightness.light,
-        primary: isDarkMode ? const Color(0xFF181818) : const Color(0xFFEDE6D6),
-        onPrimary:
-            isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
+        primary: isDarkMode ? _darkColor : _lightColor,
+        onPrimary: isDarkMode ? _lightColor : _darkColor,
         error: Colors.red,
-        onError: isDarkMode ? const Color(0xFF181818) : const Color(0xFFEDE6D6),
+        onError: isDarkMode ? _darkColor : _lightColor,
 
         // Unused
-        secondary:
-            isDarkMode ? const Color(0xFF181818) : const Color(0xFFEDE6D6),
-        onSecondary:
-            isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
-        background:
-            isDarkMode ? const Color(0xFF181818) : const Color(0xFFEDE6D6),
-        onBackground:
-            isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
-        surface: isDarkMode ? const Color(0xFF181818) : const Color(0xFFEDE6D6),
-        onSurface:
-            isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
+        secondary: isDarkMode ? _darkColor : _lightColor,
+        onSecondary: isDarkMode ? _lightColor : _darkColor,
+        background: isDarkMode ? _darkColor : _lightColor,
+        onBackground: isDarkMode ? _lightColor : _darkColor,
+        surface: isDarkMode ? _darkColor : _lightColor,
+        onSurface: isDarkMode ? _lightColor : _darkColor,
       ),
       textTheme: TextTheme(
         // Normal styles
@@ -56,13 +53,12 @@ ThemeData createTheme(bool isDarkMode) => ThemeData(
             _textStyle(isDarkMode, fontSize: 16, fontStyle: FontStyle.italic),
       ),
       textSelectionTheme: TextSelectionThemeData(
-        cursorColor:
-            isDarkMode ? const Color(0xFFEDE6D6) : const Color(0xFF181818),
+        cursorColor: isDarkMode ? _lightColor : _darkColor,
         selectionColor: isDarkMode
-            ? const Color(0xFFEDE6D6).withOpacity(0.3)
-            : const Color(0xFF181818).withOpacity(0.3),
+            ? _lightColor.withOpacity(0.3)
+            : _darkColor.withOpacity(0.3),
         selectionHandleColor: isDarkMode
-            ? const Color(0xFFEDE6D6).withOpacity(0.3)
-            : const Color(0xFF181818).withOpacity(0.3),
+            ? _lightColor.withOpacity(0.3)
+            : _darkColor.withOpacity(0.3),
       ),
     );

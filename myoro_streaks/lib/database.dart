@@ -39,8 +39,9 @@ class Database {
         enabled INTEGER
       );
     ''');
-    if ((await get('dark_mode')).isEmpty)
+    if ((await get('dark_mode')).isEmpty) {
       _database.insert('dark_mode', {'enabled': 1});
+    }
   }
 
   static Future<List<Map<String, Object?>>> select(String table,

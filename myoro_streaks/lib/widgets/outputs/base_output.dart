@@ -20,10 +20,12 @@ class BaseOutput extends StatelessWidget {
       children: [
         Text(
           '$title:',
+          textAlign: TextAlign.center,
           style: textTheme.titleMedium,
         ),
         Text(
           output,
+          textAlign: TextAlign.center,
           style: textTheme.bodyMedium,
         ),
       ],

@@ -64,7 +64,7 @@ class Streak {
   static Streak get sampleStreak => Streak(
         id: 0,
         name: 'Empty',
-        startDate: DateTime.now(),
+        startDate: DateTime.now().subtract(const Duration(days: 30)),
         timesResetted: List.generate(
           Random().nextInt(10),
           (i) => DateTime.now(),

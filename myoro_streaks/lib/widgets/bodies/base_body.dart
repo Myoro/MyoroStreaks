@@ -11,8 +11,9 @@ class BaseBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
         child: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           children: children,
         ),
       );

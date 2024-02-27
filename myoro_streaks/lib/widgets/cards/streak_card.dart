@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:myoro_streaks/enums/streak_status_enum.dart';
 import 'package:myoro_streaks/models/observation.dart';
 import 'package:myoro_streaks/models/streak.dart';
 import 'package:myoro_streaks/widgets/cards/base_card.dart';
@@ -20,6 +21,7 @@ class StreakCard extends StatefulWidget {
 class _StreakCardState extends State<StreakCard> {
   late final Timer _timer;
   ValueNotifier<String>? _dateSinceStartDate;
+  late final Color _cardColor;
 
   void _setDateSinceStartDate() {
     final Duration difference =
@@ -38,6 +40,17 @@ class _StreakCardState extends State<StreakCard> {
   void initState() {
     super.initState();
 
+    _cardColor = StreakStatusEnum.values
+        .firstWhere(
+          (value) =>
+              value.dayDifferenceOfStreak >=
+              DateTime.now().difference(widget.streak.startDate).inDays,
+        )
+        .color
+        .withOpacity(0.2);
+
+    print(DateTime.now().difference(widget.streak.startDate).inDays);
+
     _setDateSinceStartDate();
 
     _timer = Timer.periodic(
@@ -55,6 +68,7 @@ class _StreakCardState extends State<StreakCard> {
   @override
   Widget build(BuildContext context) => BaseCard(
         title: widget.streak.name,
+        backgroundColor: _cardColor,
         child: Column(
           children: [
             ValueListenableBuilder(
