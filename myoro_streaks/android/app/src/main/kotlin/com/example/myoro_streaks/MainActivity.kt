@@ -1,4 +1,4 @@
-package com.example.myoro_streaks
+package com.myoro.myoro_streaks
 
 import io.flutter.embedding.android.FlutterActivity
 
