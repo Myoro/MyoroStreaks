@@ -1,4 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:myoro_streaks/blocs/streaks_cubit.dart';
+import 'package:myoro_streaks/helpers/database_helper.dart';
+import 'package:myoro_streaks/models/streak.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:myoro_streaks/blocs/dark_mode_cubit.dart';
@@ -15,13 +19,21 @@ void main() async {
     windowManager.setMinimumSize(const Size(300, 300));
   }
 
+  if (kDebugMode) {
+    await Database.init();
+    await Database.reset();
+  }
   await Database.init();
   final bool isDarkMode =
       (await Database.get('dark_mode'))['enabled'] == 1 ? true : false;
+  final List<Streak> streaks = await DatabaseHelper.selectStreaks();
 
   runApp(
-    BlocProvider(
-      create: (context) => DarkModeCubit(isDarkMode),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => DarkModeCubit(isDarkMode)),
+        BlocProvider(create: (context) => StreaksCubit(streaks)),
+      ],
       child: const App(),
     ),
   );

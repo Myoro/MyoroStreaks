@@ -26,28 +26,13 @@ class Streak {
       : id = json['id'],
         name = json['name'],
         startDate = DateFormat('dd/MM/yyyy-HH:mm:ss').parse(json['start_date']),
-        timesResetted = List.generate(
-          json['times_resetted'].length,
-          (i) => DateFormat('dd/MM/yyyy-HH:mm:ss')
-              .parse(json['times_resetted'][i]),
-        ),
-        observations = List.generate(
-          json['observations'].length,
-          (i) => Observation.fromJson(json['observations'][i]),
-        );
+        timesResetted = [],
+        observations = [];
 
   Map<String, dynamic> get toJson => {
         'id': id,
         'name': name,
         'start_date': DateFormat('dd/MM/yyyy-HH:mm:ss').format(startDate),
-        'times_resetted': List.generate(
-          timesResetted.length,
-          (i) => DateFormat('dd/MM/yyyy-HH:mm:ss').format(timesResetted[i]),
-        ),
-        'observations': List.generate(
-          observations.length,
-          (i) => observations[i].toJson,
-        ),
       };
 
   @override
@@ -60,6 +45,21 @@ class Streak {
       observations: $observations,
     );
   ''';
+
+  Streak copyWith({
+    int? id,
+    String? name,
+    DateTime? startDate,
+    List<DateTime>? timesResetted,
+    List<Observation>? observations,
+  }) =>
+      Streak(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        startDate: startDate ?? this.startDate,
+        timesResetted: timesResetted ?? this.timesResetted,
+        observations: observations ?? this.observations,
+      );
 
   static Streak get sampleStreak => Streak(
         id: 0,

@@ -1,0 +1,1 @@
+enum BorderStyleEnum { rounded, underline }

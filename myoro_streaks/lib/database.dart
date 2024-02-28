@@ -35,7 +35,7 @@ class Database {
     // Dark mode table
     await _database.execute('''
       CREATE TABLE IF NOT EXISTS dark_mode(
-        id      INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY,
         enabled INTEGER
       );
     ''');
@@ -46,30 +46,42 @@ class Database {
     // Streaks table
     await _database.execute('''
       CREATE TABLE IF NOT EXISTS streaks(
-        id          INTEGER PRIMARY KEY AUTOINCREMENT,
-        start_date  TEXT,
-        FOREIGN KEY (times_resetted_id) REFERENCES times_resetted(id),
-        FOREIGN KEY (observations_id) REFERENCES observations(id)
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        start_date TEXT,
+        times_resetted_id INTEGER,
+        observations_id INTEGER,
+        FOREIGN KEY(times_resetted_id) REFERENCES times_resetted(id),
+        FOREIGN KEY(observations_id) REFERENCES observations(id)
       );
     ''');
 
     // Times resetted table
     await _database.execute('''
       CREATE TABLE IF NOT EXISTS times_resetted(
-        streak_id      INTEGER PRIMARY KEY,
-        times_resetted INTEGER,
-        FOREIGN KEY    (streak_id) REFERENCES streak(id),
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        streak_id INTEGER,
+        date_of_reset TEXT,
+        FOREIGN KEY(streak_id) REFERENCES streak(id)
       );
     ''');
 
     // Observations table
     await _database.execute('''
       CREATE TABLE IF NOT EXISTS observations(
-        streak_id   INTEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        streak_id INTEGER,
         observation TEXT,
-        FOREIGN KEY (streak_id) REFERENCES streak(id)
+        date_created TEXT,
+        FOREIGN KEY(streak_id) REFERENCES streak(id)
       );
     ''');
+  }
+
+  static Future<void> reset() async {
+    await sqflite.deleteDatabase(await getDatabasePath());
+    await _database.close();
+    await init();
   }
 
   static Future<List<Map<String, Object?>>> select(String table,
@@ -101,7 +113,20 @@ class Database {
     );
   }
 
-  static Future<void> insert(
-          String table, Map<String, dynamic> information) async =>
-      await _database.insert(table, information);
+  static Future<Map<String, dynamic>> insert(
+      String table, Map<String, dynamic> information) async {
+    final int id = await _database.insert(table, information);
+    return get(table, {'id': id});
+  }
+
+  static Future<void> delete(String table,
+      [Map<String, dynamic>? conditions]) async {
+    conditions = formatConditions(conditions);
+
+    await _database.delete(
+      table,
+      where: conditions?['where'],
+      whereArgs: conditions?['whereArgs'],
+    );
+  }
 }

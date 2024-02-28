@@ -22,7 +22,7 @@ class _StreakFormModalState extends State<StreakFormModal> {
   final TextEditingController _nameController = TextEditingController();
 
   void _createStreak() {
-    BlocProvider.of<StreaksCubit>(context).add(
+    BlocProvider.of<StreaksCubit>(context).addStreak(
       Streak(
         name: _nameController.text,
         startDate: DateTime.now(),
@@ -42,7 +42,7 @@ class _StreakFormModalState extends State<StreakFormModal> {
 
   @override
   Widget build(BuildContext context) => BaseModal(
-        size: const Size(330, 140),
+        size: const Size(330, 150),
         title: 'Create a new streak',
         showFooterButtons: true,
         yesOnTap: () => _createStreak(),
@@ -51,7 +51,6 @@ class _StreakFormModalState extends State<StreakFormModal> {
             BaseTextFieldForm(
               title: 'Name of Streak',
               textFieldWidth: 135,
-              obligatory: true,
               controller: _nameController,
             ),
           ],

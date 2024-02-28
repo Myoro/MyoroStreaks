@@ -21,7 +21,7 @@ class BaseModal extends StatelessWidget {
     this.yesOnTap,
     required this.content,
   }) {
-    assert(showFooterButtons && yesOnTap != null);
+    if (showFooterButtons) assert(yesOnTap != null);
   }
 
   @override
@@ -57,7 +57,6 @@ class BaseModal extends StatelessWidget {
                     BaseHoverButton(
                       onTap: () => Navigator.pop(context),
                       icon: Icons.close,
-                      iconSize: 30,
                     ),
                   ],
                 ),
@@ -68,7 +67,7 @@ class BaseModal extends StatelessWidget {
                     children: [
                       Expanded(
                         child: BaseHoverButton(
-                          onTap: () => Navigator.pop(context),
+                          onTap: () => yesOnTap!(),
                           text: 'Confirm',
                           bordered: true,
                         ),
